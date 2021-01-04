@@ -9,36 +9,52 @@ import java.util.Date;
 
 public class City implements FromJson{
 
-	private String cityname;
-	private Date dataeora;
+	private String name;
+	private  Coord coord;
+	private String id;
 
 	public City() {
 		super();
 	}
 
-	public City(String cityname, Date dataeora) {
-		super();
-		this.cityname = cityname;
-		this.dataeora = dataeora;
-	}
-
-	public String getCityname() {
-		return cityname;
-	}
-
-	public void setCityname(String cityname) {
-		this.cityname = cityname;
-	}
-
-	public Date getDataeora() {
-		return dataeora;
+	public City(String name, Coord coord) {
+		this.name = name;
+		this.coord = coord;
 	}
 	
-	protected class coord{
+	public City(File json) {
+		JSONtoJava(json);
+	}
+	
+	protected class Coord{
 		public double lat;
 		public double lon;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Coord getCoord() {
+		return coord;
+	}
+
+	public void setCoord(Coord coord) {
+		this.coord = coord;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@Override
 	public void JSONtoJava(File json) {
 		//da implementare
