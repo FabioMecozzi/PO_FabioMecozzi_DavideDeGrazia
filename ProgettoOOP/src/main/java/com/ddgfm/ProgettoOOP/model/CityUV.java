@@ -1,6 +1,5 @@
 package com.ddgfm.ProgettoOOP.model;
 
-import java.io.File;
 import java.util.Date;
 import java.util.TreeSet;
 
@@ -10,33 +9,66 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
 
-/**
- * Classe che rappresenta una città a cui è legato uno storico di valori di uv
- * @author meefa
- *
- */
+//Questa classe rappresenta il modello dei dati contenuti nell'archivio.
+//Ci sta solo il problema che bisogna passare per parametri le coordinate,
+//mentre sarebbe preciso se passassimo il nome della città
+
 public class CityUV extends City {
-	private TreeSet<UV> uvSet;
-	private int goodForecast;
-	private int totalForecast;
-	private double accouracy=-1.0;
-	
-	/**
-	 * cosrtuttore
-	 * @param uvSet storico degli uv per la città
-	 */
-	CityUV(TreeSet<UV> uvSet){
-		this.uvSet=uvSet;
-		
+
+	private class Uv {
+
+		private Date dataeora;
+		private long uVvalue;
+
+		public Uv(Date dataeora, long uVvalue) {
+			super();
+			this.dataeora = dataeora;
+			this.uVvalue = uVvalue;
+		}
+
 	}
-	
-	/*
-	CityUV(File json){
-		JSONtoJava(json);
+
+	private static double accouracy = 0.0;
+	private static int goodForecast = 0;
+	private static int totalForecast = 0;
+
+	public static double getAccouracy() {
+		return accouracy;
 	}
-	//funzione che bisogna implementare---->
-	@Override
-	public void JSONtoJava(File json) {
+
+	public static void setAccouracy(double accouracy) {
+		CityUV.accouracy = accouracy;
+	}
+
+	public static int getGoodForecast() {
+		return goodForecast;
+	}
+
+	public static void setGoodForecast(int goodForecast) {
+		CityUV.goodForecast = goodForecast;
+	}
+
+	public static int getTotalForecast() {
+		return totalForecast;
+	}
+
+	public static void setTotalForecast(int totalForecast) {
+		CityUV.totalForecast = totalForecast;
+	}
+
+	private long uVvalue;
+	private Date dataeora;
+
+	public CityUV(int id, String name, Date dataeora, long uVvalue) {
+		super(id, name);
+		this.dataeora = dataeora;
+		this.uVvalue = uVvalue;
+	}
+
+	private TreeSet<Long> uVlist;
+
+
+	public void JSONtoJava() {
 		@SuppressWarnings("deprecation")
 		JSONParser parser = new JSONParser();
 		JSONObject obj = null;
@@ -54,17 +86,8 @@ public class CityUV extends City {
 			this.uVvalue = (long) obj.get("value");
 		} catch (ParseException e) {
 			e.printStackTrace();
-
 		}
 
-	}*/
-	
-	/*
-	 * Storico di valori uv
-	 */
-	private class UV{
-		public double value;
-		public Date date;
 	}
-}
 
+}

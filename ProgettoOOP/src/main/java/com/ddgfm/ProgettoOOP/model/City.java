@@ -1,62 +1,49 @@
 package com.ddgfm.ProgettoOOP.model;
 
-import java.io.File;
-import java.util.Date;
+public class City {
 
-//Questa classe rappresenta il modello dei dati contenuti nell'archivio.
-//Ci sta solo il problema che bisogna passare per parametri le coordinate,
-//mentre sarebbe preciso se passassimo il nome della città
-
-public class City implements FromJson{
-
+	private int id;
 	private String name;
-	private  Coord coord;
-	private String id;
-
-	public City() {
-		super();
-	}
-
-	public City(String name, Coord coord) {
+	
+	public City(int id, String name) {
+		
+		this.id = id;
 		this.name = name;
-		this.coord = coord;
 	}
 	
-	public City(File json) {
-		JSONtoJava(json);
+	public int getId() {
+		return id;
 	}
-	
-	protected class Coord{
-		public double lat;
-		public double lon;
-	}
-	
+
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	private class Coord {
+
+		private long lat;
+		private long lon;
+
+		public Coord(long lat, long lon) {
+			super();
+			this.lat = lat;
+			this.lon = lon;
+		}
+	
+		
+		public long getLat() {
+			return lat;
+		}
+		public void setLat(long lat) {
+			this.lat = lat;
+		}
+		public long getLon() {
+			return lon;
+		}
+		public void setLon(long lon) {
+			this.lon = lon;
+		}
+		
 	}
 
-	public Coord getCoord() {
-		return coord;
-	}
-
-	public void setCoord(Coord coord) {
-		this.coord = coord;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	@Override
-	public void JSONtoJava(File json) {
-		//da implementare
-	}
 }
