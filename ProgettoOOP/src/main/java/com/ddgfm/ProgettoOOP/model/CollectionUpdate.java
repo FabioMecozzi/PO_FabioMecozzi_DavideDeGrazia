@@ -1,7 +1,13 @@
 package com.ddgfm.ProgettoOOP.model;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
+
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 
 /**
  * Classe rappresenta l'oggetto che l'admin inserisce per modificare la
@@ -71,8 +77,22 @@ public class CollectionUpdate<ID> implements FromJson {
 	 * 
 	 * @param File json File contenente gli attributi per l'oggetto
 	 */
+	@SuppressWarnings("deprecation")
 	public void JSONtoJava(File json) {
-		// TODO implement here
+		  JSONParser parser = new JSONParser();
+		  Object obj = null;
+			
+				try {
+					obj = parser.parse(new FileReader(json));
+				} catch (FileNotFoundException | ParseException e) {
+					
+					e.printStackTrace();
+				}
+			
+				JSONObject jsonObject = (JSONObject) obj;
+				
+				
+				
 	}
 
 }
