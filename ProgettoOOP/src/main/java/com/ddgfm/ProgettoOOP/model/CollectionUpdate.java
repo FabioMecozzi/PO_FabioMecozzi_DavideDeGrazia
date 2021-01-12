@@ -72,7 +72,18 @@ public class CollectionUpdate<ID> implements FromJson {
 	 * @param File json File contenente gli attributi per l'oggetto
 	 */
 	public void JSONtoJava(File json) {
-		// TODO implement here
+		Object obj = null;
+			
+			try {
+				obj = parser.parse(new FileReader(file));
+			} catch (FileNotFoundException | ParseException e) {
+				
+				e.printStackTrace();
+			}
+			JSONObject jsonObject = (JSONObject) obj;
+				
+	            
+			//this.deleteAll = (boolean) obj.get ("deleteAll");
 	}
 
 }
