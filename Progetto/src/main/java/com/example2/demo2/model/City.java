@@ -1,16 +1,21 @@
 package com.example2.demo2.model;
 
 import java.io.File;
+import java.io.Serializable;
 
-import com.example2.demo2.utils.ModelUtils;
+import com.example2.demo2.utils.NumberUtils;
 
 //Questa classe rappresenta il modello dei dati contenuti nell'archivio.
 //Ci sta solo il problema che bisogna passare per parametri le coordinate,
 //mentre sarebbe preciso se passassimo il nome della città
 
 
-public abstract class City implements FromJson {
+public abstract class City implements FromJson,Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String lat;
 	private String lon;
@@ -45,7 +50,7 @@ public abstract class City implements FromJson {
 	}
 
 	void setLat(String lat) throws NumberFormatException {
-		if (ModelUtils.isNumeric(lat)) {
+		if (NumberUtils.isNumeric(lat)) {
 			this.lat = lat;
 		} else {
 			throw new NumberFormatException();
@@ -57,7 +62,7 @@ public abstract class City implements FromJson {
 	}
 
 	void setLon(String lon) {
-		if (ModelUtils.isNumeric(lon)) {
+		if (NumberUtils.isNumeric(lon)) {
 			this.lon = lon;
 
 		} else {
