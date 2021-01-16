@@ -28,7 +28,6 @@ public class CityUV extends City implements FromJson {
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
-	 * Indica se la città deve essere monitorata
 	 */
 	boolean monitored = false;
 	LocalDate forecastDate;
@@ -50,7 +49,7 @@ public class CityUV extends City implements FromJson {
 	}
 
 	/**
-	 * Map che contiene i dati dei raggi uv legati al giorno
+	 * LinkedHashMap che contiene i dati dei raggi uv legati al giorno
 	 */
 	private LinkedHashMap<LocalDate, Double> record;
 
