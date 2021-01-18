@@ -43,10 +43,7 @@ public class DownloadException extends Exception {
 	 * LinkedHasSet di città che non sono state scaricate
 	 */
 	private LinkedHashSet<CityUV> citiesFailed= new LinkedHashSet<CityUV>();
-	/**
-	 * Se true i
-	 */
-	boolean solved=false;
+
 	
 	/**
 	 * 
