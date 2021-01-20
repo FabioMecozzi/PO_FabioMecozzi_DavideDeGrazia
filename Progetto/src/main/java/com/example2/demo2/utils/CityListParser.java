@@ -9,14 +9,10 @@ public class CityListParser {
 
 	//Da implementare?
 	public List<City> parseIT(File source) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public List<City> parse(File source) {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 }

@@ -3,6 +3,8 @@ package com.example2.demo2.service;
 import java.io.File;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,31 +22,34 @@ public class CityService {
 	@Autowired
 	CityUVRepository repository;
 
+	/**
+	 * 
+	 * @return Tutte le città della repository
+	 */
 	public LinkedHashSet<City> getCityOpenWeatherMapList() {
-		LinkedHashSet<City> result = new LinkedHashSet<City>();
-		try {
-			for (CityUV city : repository.findAll()) {
-				result.add(city);
-			}
-		} catch (NullPointerException nullPointerException) {
-		}
-		return result;
+		Iterable<CityUV> iterable = repository.findAll();
+		return (StreamSupport.stream(iterable.spliterator(), false)
+				.collect(Collectors.toCollection(LinkedHashSet::new)));
 	}
 
+	/**
+	 * 
+	 * @return Le città monitorate
+	 */
 	// TODO: implementare questa funzione con le queries alla repository
 	public LinkedHashSet<CityUV> getAllMonitored() {
-		LinkedHashSet<CityUV> result = new LinkedHashSet<CityUV>();
-		try {
-			for (CityUV city : repository.findAll()) {
-				if (city.isMonitored()) {
-					result.add(city);
-				}
-			}
-		} catch (NullPointerException nullPointerException) {}
-		
-		return result;
+		Iterable<CityUV> iterable = repository.findAll();
+		return (StreamSupport.stream(iterable.spliterator(), false).filter((c) -> c.isMonitored())
+				.collect(Collectors.toCollection(LinkedHashSet::new)));
 	}
 
+	/**
+	 * Aggiorna le città da monitorare
+	 * 
+	 * @param update CollectionUpdate<Long> contenente le informazioni su quali
+	 *               città eliminare dalle città monitorate e quali città aggiungere
+	 *               alle città monitorate attraverso gli id
+	 */
 	// TODO: implementare questa funzione con le queries alla repository
 	public void updateMonitoredCities(CollectionUpdate<Long> update) {
 		if (update.isDelteAll()) {
@@ -52,8 +57,9 @@ public class CityService {
 				for (CityUV city : repository.findAll()) {
 					city.setMonitored(false);
 				}
-			} catch (Exception e) {}
-			
+			} catch (Exception e) {
+			}
+
 		} else {
 			if (update.deletingList != null) {
 				setMonitoredByIds(update.deletingList, false);
@@ -63,13 +69,20 @@ public class CityService {
 			setMonitoredByIds(update.savingList, true);
 		}
 	}
-
+	/**
+	 * Metodo che aggiorna il campo monitored delle città relative agli id passati con il parametro
+	 * @param IDs Id delle città da settare
+	 * @param valueToSet valore da settare
+	 */
 	private void setMonitoredByIds(Iterable<Long> IDs, boolean valueToSet) {
 		for (CityUV cityUV : repository.findAllById(IDs)) {
 			cityUV.setMonitored(valueToSet);
 		}
 	}
 
+	/**
+	 * Carica all'interno della repository la lista delle città all'indirizzo indicato da source
+	 */
 	// TODO: implementare con i filtri
 	public void loadOpenWeatherCityList() {
 		File source = new File(openWeathercityListSrcPath);
@@ -79,6 +92,11 @@ public class CityService {
 		repository.saveAll(openWeatherCityList);
 	}
 
+	/**
+	 * Elimina dalla repository le città relative agli id indicati
+	 * @param ids id delle città da eliminare
+	 * @throws IllegalArgumentException se uno degli id è null
+	 */
 	public void deleteByIds(Iterable<Long> ids) throws IllegalArgumentException {
 		for (long id : ids) {
 			repository.deleteById(id);

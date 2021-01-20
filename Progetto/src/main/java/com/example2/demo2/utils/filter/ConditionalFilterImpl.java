@@ -41,7 +41,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	/**
 	 * Campo che contiene l'oggetto da filtrare
 	 */
-	private T toFilter;
+	private T toBeFiltered;
 	/**
 	 * Valori necessari per il filtraggio
 	 */
@@ -55,17 +55,17 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 * 
 	 * @return l'oggetto che può essere filtrato attualmente
 	 */
-	T getToFilter() {
-		return toFilter;
+	T getToBeFiltered() {
+		return toBeFiltered;
 	}
 
 	/**
 	 * Metodo utile per riutilizzare lo stessso filtro per diversi oggetti
 	 * 
-	 * @param toFilter l'oggetto da filtrare
+	 * @param toBeFiltered l'oggetto da filtrare
 	 */
-	void setToFilter(T toFilter) {
-		this.toFilter = toFilter;
+	void setToBeFiltered(T toBeFiltered) {
+		this.toBeFiltered = toBeFiltered;
 	}
 
 	/**
@@ -115,16 +115,16 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 		this.operator = operator;
 	}
 
-	public boolean filter(T toFilter, String operator, T[] values) throws IllegalArgumentException {
+	public boolean filter(T toBeFiltered, String operator, T[] values) throws IllegalArgumentException {
 		try {
-			this.toFilter = toFilter;
+			this.toBeFiltered = toBeFiltered;
 			this.values = values;
 			switch (operator) {
 			case "$lt":
 				return lt();
 			case "$lte":
 				return lte();
-			case "eq":
+			case "$eq":
 				return eq();
 			case "$gt":
 				return gt();
@@ -158,7 +158,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *         falso altrimenti
 	 */
 	private boolean lt() {
-		return toFilter.compareTo(values[0]) < 0;
+		return toBeFiltered.compareTo(values[0]) < 0;
 	}
 
 	/**
@@ -168,7 +168,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *         values, falso altrimenti
 	 */
 	private boolean lte() {
-		return toFilter.compareTo(values[0]) <= 0;
+		return toBeFiltered.compareTo(values[0]) <= 0;
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *         falso altrimenti
 	 */
 	private boolean eq() {
-		return toFilter.compareTo(values[0]) == 0;
+		return toBeFiltered.compareTo(values[0]) == 0;
 	}
 
 	/**
@@ -188,7 +188,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *         falso altrimenti
 	 */
 	private boolean gt() {
-		return toFilter.compareTo(values[0]) > 0;
+		return toBeFiltered.compareTo(values[0]) > 0;
 	}
 
 	/**
@@ -198,7 +198,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *         values, falso altrimenti
 	 */
 	private boolean gte() {
-		return toFilter.compareTo(values[0]) >= 0;
+		return toBeFiltered.compareTo(values[0]) >= 0;
 	}
 
 	/**
@@ -208,7 +208,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *         values, falso altrimenti
 	 */
 	private boolean bt() {
-		return (gt() && toFilter.compareTo(values[1]) < 0);
+		return (gt() && toBeFiltered.compareTo(values[1]) < 0);
 	}
 
 	/**
@@ -218,7 +218,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *         falso altrimenti
 	 */
 	private boolean not() {
-		return toFilter.compareTo(values[0]) != 0;
+		return toBeFiltered.compareTo(values[0]) != 0;
 	}
 
 	/**
@@ -229,7 +229,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 */
 	private boolean in() {
 		for (T value : values) {
-			if (toFilter.equals(value)) {
+			if (toBeFiltered.equals(value)) {
 				return true;
 			}
 		}
@@ -244,7 +244,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 */
 	private boolean nin() {
 		for (T value : values) {
-			if (toFilter.equals(value)) {
+			if (toBeFiltered.equals(value)) {
 				return false;
 			}
 		}
@@ -252,13 +252,13 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	}
 
 	/**
-	 * Filtra il nuovo oggetto toFilter secondo i valori dei campi contenuti
+	 * Filtra il nuovo oggetto toBeFiltered secondo i valori dei campi contenuti
 	 * nell'istanza di questa classe, così da poter riutilizzare lo stesso filtro
 	 * per diversi oggetti
 	 */
 	@Override
-	public boolean filter(T toFilter) throws IllegalArgumentException {
-		return this.filter(toFilter, this.operator, this.values);
+	public boolean filter(T toBeFiltered) throws IllegalArgumentException {
+		return this.filter(toBeFiltered, this.operator, this.values);
 	}
 
 	/**
