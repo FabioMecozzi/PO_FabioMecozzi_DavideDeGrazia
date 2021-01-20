@@ -61,4 +61,12 @@ public class CityListParser {
 
 
 
+	//Da implementare?
+	public List<City> parseIT(File source) {
+		return null;
+	}
+
+	public List<City> parse(File source) {
+		return null;
+	}
 }

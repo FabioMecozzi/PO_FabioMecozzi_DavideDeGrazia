@@ -1,7 +1,6 @@
 package com.example2.demo2.service;
 
 import java.time.LocalDate;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.example2.demo2.exception.IdNotFoundException;
 import com.example2.demo2.model.CityUV;
 import com.example2.demo2.repository.CityUVRepository;
-import com.example2.demo2.utils.CollectionFilter;
 
 /**
  * Classe che gestisce i record degli UV negli elementi della repository
@@ -27,7 +25,7 @@ public class CityUVService {
 	@Autowired
 	CityUVRepository repository;
 	@Autowired
-	CollectionFilter filter;
+	FilterService filter;
 
 	public LinkedHashMap<LocalDate, Double> getRecordById(Long id)
 			throws IdNotFoundException, IllegalArgumentException {

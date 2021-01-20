@@ -3,7 +3,6 @@ package com.example2.demo2.model;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
-import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -32,17 +31,17 @@ public class CityUV extends City implements FromJson {
 	 * Indica se la città è monitorata
 	 */
 	boolean monitored = false;
+	
 	/**
 	 * Data relativa a una previsione UV
 	 */
-	Optional<LocalDate> forecastDate= Optional.ofNullable(null);
-
-	Optional<LocalDate> getForecastDate() {
+	LocalDate forecastDate= null;
+	LocalDate getForecastDate() {
 		return forecastDate;
 	}
 
 	public void setForecastDate(LocalDate forecastDate) {
-		this.forecastDate = Optional.ofNullable(forecastDate);
+		this.forecastDate = forecastDate;
 	}
 
 	public void setGoodForecast(int goodForecast) {
@@ -78,6 +77,9 @@ public class CityUV extends City implements FromJson {
 	public CityUV(City city) {
 		super(city.getId(), city.getName(), city.getLon(), city.getLat());
 	}
+	
+	
+		
 
 	@Id
 	public long getId() {
@@ -154,7 +156,7 @@ public class CityUV extends City implements FromJson {
 		} catch (Exception e) {
 			record.put(today, todayValue);
 		} finally {
-			this.forecastDate = Optional.of(tomorrow) ;
+			this.forecastDate = tomorrow ;
 		}
 
 	}
@@ -192,7 +194,7 @@ public class CityUV extends City implements FromJson {
 			throws NotFoundException, IllegalArgumentException, ForecastNotRegisteredException {
 		LocalDate today = LocalDate.now();
 		boolean result = false;
-		if (record.containsKey(today) && forecastDate.isPresent() && forecastDate.isPresent() && today.equals(forecastDate.get())) {
+		if (record.containsKey(today) && getForecastDate()!=null  && today.equals(getForecastDate())) {
 			
 			try {
 				if (valueIsGood(today, actualValue, trasholdError) == true) {
@@ -209,7 +211,7 @@ public class CityUV extends City implements FromJson {
 				throw e;
 			}
 		} else {
-			if (!forecastDate.isPresent() || !today.equals(forecastDate.get())) {
+			if (getForecastDate()==null || !today.equals(getForecastDate())) {
 				throw new ForecastNotRegisteredException("La data di oggi non contiene una previsione");
 			}
 			throw new NotFoundException("Il registro non contiene il valore di oggi");
