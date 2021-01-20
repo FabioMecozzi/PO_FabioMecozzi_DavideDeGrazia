@@ -19,5 +19,12 @@ public interface Filter<T, V>  {
 	 */
 	public boolean filter(T toFilter, String condition,  V[] values) throws IllegalArgumentException;
 	
+	/**
+	 * Metodo che permette di filtrare utilizzando campi presenti all'interno dell'oggetto della classe che impementa l'interfaccia
+	 * @param toFilter nuovo oggetto da filtrare 
+	 * @return vero se il nuovo oggetto corrisponde ai filtri, falso altrimenti
+	 * @throws IllegalArgumentException
+	 */
+	public boolean filter(T toFilter) throws IllegalArgumentException;
 
 }
