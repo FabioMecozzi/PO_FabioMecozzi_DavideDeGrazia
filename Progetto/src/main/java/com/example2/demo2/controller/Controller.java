@@ -139,6 +139,7 @@ public class Controller {
 
 	@ExceptionHandler(ControllerException.class)
 	public ModelAndView ControllerExceptionHandler(ControllerException e) {
+		log.addException(e);
 		ModelAndView modelAndView = new ModelAndView();
 	    modelAndView.setViewName("error");
 	    modelAndView.addObject("message", e.getMessage());
