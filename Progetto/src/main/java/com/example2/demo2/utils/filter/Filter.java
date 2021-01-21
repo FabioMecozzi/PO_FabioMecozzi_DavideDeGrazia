@@ -1,5 +1,7 @@
 package com.example2.demo2.utils.filter;
 
+import java.util.Vector;
+
 /**
  * 
  * @author meefa
@@ -17,7 +19,7 @@ public interface Filter<T, V>  {
 	 * @return Vero se l'oggetto rispetta i parametri secondo l'operatore, falso altrimenti
 	 * @throws IllegalArgumentException se i parametri non rispettano delle caratteristiche necessarie
 	 */
-	public boolean filter(T toFilter, String condition,  V[] values) throws IllegalArgumentException;
+	public boolean filter(T toFilter, String condition, Vector<V> values) throws IllegalArgumentException;
 	
 	/**
 	 * Metodo che permette di filtrare utilizzando campi presenti all'interno dell'oggetto della classe che impementa l'interfaccia

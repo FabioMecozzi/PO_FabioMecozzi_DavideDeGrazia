@@ -3,6 +3,8 @@
  */
 package com.example2.demo2.utils.filter;
 
+import java.util.Vector;
+
 /**
  * Classe che rappresenta un singolo filtro applicabile su una città
  * 
@@ -18,7 +20,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *                                  filtro oppure se la string non corrisponde a
 	 *                                  nessun operatore ammissibile
 	 */
-	public ConditionalFilterImpl(String operator, T[] values) throws IllegalArgumentException {
+	public ConditionalFilterImpl(String operator, Vector<T> values) throws IllegalArgumentException {
 		if (isAdmissibleOperator(operator))
 			this.operator = operator;
 		this.setValues(values);
@@ -45,7 +47,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	/**
 	 * Valori necessari per il filtraggio
 	 */
-	private T[] values;
+	private Vector<T> values;
 	/**
 	 * Operatore condizionale che descrive il filtro
 	 */
@@ -72,7 +74,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 * 
 	 * @return i valori che caratterizzano il filtro
 	 */
-	T[] getValues() {
+	Vector<T> getValues() {
 		return values;
 	}
 
@@ -83,10 +85,10 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *                                  numero minimo di valori richiesti
 	 *                                  dall'operatore
 	 */
-	void setValues(T[] values) throws IllegalArgumentException {
-		if (this.values.length == 0)
+	void setValues(Vector<T> values) throws IllegalArgumentException {
+		if (this.values.size() == 0)
 			throw new IllegalArgumentException("Il filtro deve contenere dei valori con cui confrontare gli oggetti");
-		if (this.operator == "$bt" && values.length == 1)
+		if (this.operator == "$bt" && values.size() == 1)
 			throw new IllegalArgumentException("Per l'operatore \"$bt\" occorrono 2 valori");
 		this.values = values;
 	}
@@ -109,13 +111,13 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	void setOperator(String operator) throws IllegalArgumentException {
 		if (!isAdmissibleOperator(operator))
 			throw new IllegalArgumentException("L'operatore \"" + operator + "\" non è ammissibile");
-		if (operator == "$bt" && this.values.length < 2)
+		if (operator == "$bt" && this.values.size() < 2)
 			throw new IllegalArgumentException(
 					"L'operatore between richiede almeno due valori con cui confrontare gli oggetti");
 		this.operator = operator;
 	}
 
-	public boolean filter(T toBeFiltered, String operator, T[] values) throws IllegalArgumentException {
+	public boolean filter(T toBeFiltered, String operator, Vector<T> values) throws IllegalArgumentException {
 		try {
 			this.toBeFiltered = toBeFiltered;
 			this.values = values;
@@ -158,7 +160,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *         falso altrimenti
 	 */
 	private boolean lt() {
-		return toBeFiltered.compareTo(values[0]) < 0;
+		return toBeFiltered.compareTo(values.firstElement()) < 0;
 	}
 
 	/**
@@ -168,7 +170,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *         values, falso altrimenti
 	 */
 	private boolean lte() {
-		return toBeFiltered.compareTo(values[0]) <= 0;
+		return toBeFiltered.compareTo(values.firstElement()) <= 0;
 	}
 
 	/**
@@ -178,7 +180,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *         falso altrimenti
 	 */
 	private boolean eq() {
-		return toBeFiltered.compareTo(values[0]) == 0;
+		return toBeFiltered.compareTo(values.firstElement()) == 0;
 	}
 
 	/**
@@ -188,7 +190,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *         falso altrimenti
 	 */
 	private boolean gt() {
-		return toBeFiltered.compareTo(values[0]) > 0;
+		return toBeFiltered.compareTo(values.firstElement()) > 0;
 	}
 
 	/**
@@ -198,7 +200,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *         values, falso altrimenti
 	 */
 	private boolean gte() {
-		return toBeFiltered.compareTo(values[0]) >= 0;
+		return toBeFiltered.compareTo(values.firstElement()) >= 0;
 	}
 
 	/**
@@ -208,7 +210,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *         values, falso altrimenti
 	 */
 	private boolean bt() {
-		return (gt() && toBeFiltered.compareTo(values[1]) < 0);
+		return (gt() && toBeFiltered.compareTo(values.get(1)) < 0);
 	}
 
 	/**
@@ -218,7 +220,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 	 *         falso altrimenti
 	 */
 	private boolean not() {
-		return toBeFiltered.compareTo(values[0]) != 0;
+		return toBeFiltered.compareTo(values.firstElement()) != 0;
 	}
 
 	/**
