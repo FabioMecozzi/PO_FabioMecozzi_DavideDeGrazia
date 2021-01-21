@@ -10,7 +10,6 @@ public class CityWithCountry extends City {
 	/**
 	 * Identificativo unico di versione
 	 */
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Paese di apparteneza della città
@@ -21,6 +20,7 @@ public class CityWithCountry extends City {
 	 */
 	public CityWithCountry() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -37,34 +37,41 @@ public class CityWithCountry extends City {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-
+	@Override
 	public String getLat() {
 		return super.getLat();
 	}
+	@Override
 
 	public void setLat(String lat) throws NumberFormatException {
 		super.setLat(lat);
 	}
+	@Override
 
 	public String getLon() {
 		return super.getLon();
 	}
+	@Override
 
 	public void setLon(String lon) throws NumberFormatException{
 		super.setLon(lon);
 	}
+	@Override
 
 	public String getName() {
 		return super.getName();
 	}
+	@Override
 
 	public void setName(String name) {
 		super.setName(name);
 	}
+	@Override
 
 	public long getId() {
 		return super.getId();
 	}
+	@Override
 
 	public void setId(long id) throws NumberFormatException{
 		super.setId(id);

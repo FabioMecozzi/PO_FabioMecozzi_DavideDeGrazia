@@ -4,10 +4,10 @@ import java.util.Vector;
 
 /**
  * 
- * @author meefa
+ * @author Fabio Mecozzi & Davide De Grazia
  *
- * @param <T>
- * @param <V>
+ * @param <T> Tipo dell'oggetto da filtrare
+ * @param <V> Tipo del valore da filtrare
  */
 public interface Filter<T, V>  {
 	

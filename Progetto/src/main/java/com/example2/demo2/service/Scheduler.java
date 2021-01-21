@@ -1,6 +1,7 @@
 package com.example2.demo2.service;
 
-import java.util.Optional;
+import java.util.HashSet;
+import java.util.Optional; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,7 +16,7 @@ import com.example2.demo2.utils.OpenWeatherDownloader;
  * Componente per schiamare delle operazioni con cadenza fissa durante
  * l'esecuzione dell'applicazione
  * 
- * @author meefa
+ * @author Fabio Mecozzi & Davide De Grazia
  *
  */
 @Component
@@ -72,7 +73,13 @@ public class Scheduler {
 	 */
 	private void sample(Iterable<CityUV> collection) {
 		try {
-			downloader.download(collection);
+			HashSet<CityUV> copy = new HashSet<>();
+			for (CityUV cityUV : collection) {
+				copy.add(cityUV);
+			}
+			downloader.download(copy,1);
+			cityUVService.update(copy);
+			
 			downloadException = Optional.ofNullable(null);
 		} catch (DownloadException e) {
 			downloadException = Optional.of(e);

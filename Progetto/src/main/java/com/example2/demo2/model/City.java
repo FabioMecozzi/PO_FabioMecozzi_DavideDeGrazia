@@ -1,39 +1,72 @@
 package com.example2.demo2.model;
 
-import java.io.File;
 import java.io.Serializable;
 
 import com.example2.demo2.utils.NumberUtils;
 
-//Questa classe rappresenta il modello dei dati contenuti nell'archivio.
-//Ci sta solo il problema che bisogna passare per parametri le coordinate,
-//mentre sarebbe preciso se passassimo il nome della città
-
-
-public abstract class City implements FromJson,Serializable {
+/**
+ * Classe astratta che rappresenta un città senza il paese di appartenenza
+ * 
+ * @author meefa
+ *
+ */
+public abstract class City implements Serializable {
 
 	/**
-	 * 
+	 * Identificativo unico di versione
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * nome della città
+	 */
 	private String name;
+	/**
+	 * Latitudine della città fornita da OpenWeatherMap
+	 */
 	private String lat;
+	/**
+	 * Longitudine della città fornita da OpenWeatherMap
+	 */
 	private String lon;
+	/**
+	 * ID della città fornito da OpenWeatherMap
+	 */
 	private long id;
 
+	/**
+	 * Costruttore
+	 */
 	public City() {
 		super();
 	}
 
+	/**
+	 * Costruttore con parametri
+	 * 
+	 * @param id   id della città
+	 * @param name nome della città
+	 * @param lon  longitudine della città, deve rappresentare un numero di tipo
+	 *             double
+	 * @param lat  latitudine della città, deve rappresentare un numero di tipo
+	 *             double
+	 * @throws NumberFormatException se l'id inserito è negativo o se lot o lat non
+	 *                               rappresentano un numero di tipo double
+	 */
 	public City(long id, String name, String lon, String lat) throws NumberFormatException {
 		this(name, lon, lat);
-		try {
-			setId(id);
-		} catch (NumberFormatException e) {
-			throw e;
-		}
+		setId(id);
 	}
 
+	/**
+	 * Costruttore con parametri
+	 * 
+	 * @param name nome della città
+	 * @param lon  longitudine della città, deve rappresentare un numero di tipo
+	 *             double
+	 * @param lat  latitudine della città, deve rappresentare un numero di tipo
+	 *             double
+	 * @throws NumberFormatException
+	 */
 	public City(String name, String lon, String lat) throws NumberFormatException {
 		this.name = name;
 		try {
@@ -45,11 +78,20 @@ public abstract class City implements FromJson,Serializable {
 
 	}
 
-	String getLat() {
+	/**
+	 * @return la latitudine
+	 */
+	public String getLat() {
 		return lat;
 	}
 
-	void setLat(String lat) throws NumberFormatException {
+	/**
+	 * @param lat latitudine della città, deve rappresentare un numero di tipo
+	 *            double
+	 * @throws NumberFormatException se il parametro non rappresenta un numero di
+	 *                               tipo double
+	 */
+	public void setLat(String lat) throws NumberFormatException {
 		if (NumberUtils.isNumeric(lat)) {
 			this.lat = lat;
 		} else {
@@ -57,11 +99,20 @@ public abstract class City implements FromJson,Serializable {
 		}
 	}
 
-	String getLon() {
+	/**
+	 * @return la Longitudine
+	 */
+	public String getLon() {
 		return lon;
 	}
 
-	void setLon(String lon) {
+	/**
+	 * @param lon longitudine della città, deve rappresentare un numero di tipo
+	 *            double
+	 * @throws NumberFormatException se il parametro non rappresenta un numero di
+	 *                               tipo double
+	 */
+	public void setLon(String lon) throws NumberFormatException {
 		if (NumberUtils.isNumeric(lon)) {
 			this.lon = lon;
 
@@ -70,19 +121,35 @@ public abstract class City implements FromJson,Serializable {
 		}
 	}
 
+	/**
+	 * 
+	 * @return il nome della città
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * 
+	 * @param name il nome della città
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * 
+	 * @return l'ID della città
+	 */
 	public long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	/**
+	 * @param id l'id della città
+	 * @throws NumberFormatException se l'id non è positivo
+	 */
+	public void setId(long id) throws NumberFormatException {
 		if (id > 0) {
 			this.id = id;
 		} else {
@@ -91,14 +158,9 @@ public abstract class City implements FromJson,Serializable {
 	}
 
 	@Override
-	public void JSONtoJava(File json) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
 	public String toString() {
-		return(""+ "ID: "+ this.id+ " nome: "+ this.name+" Longitudine: "+ this.lon +" Latitudine: "+ this.lat);
+		return ("" + "ID: " + this.id + "Nnome: " + this.name + " Longitudine: " + this.lon + " Latitudine: "
+				+ this.lat);
 	}
 
 }

@@ -6,10 +6,10 @@ package com.example2.demo2.utils.filter;
 import java.util.Vector;
 
 /**
- * Classe che rappresenta un singolo filtro applicabile su una città
- * 
+ * Classe che rappresenta un singolo filtro caratterizzato da un operatore condizionale applicabile su una città
  * @author Fabio Mecozzi & Davide De Grazia
  *
+ * @param <T> Classe che estende Comaparble<T>
  */
 public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T, T> {
 	/**
@@ -116,7 +116,7 @@ public class ConditionalFilterImpl<T extends Comparable<T>> implements Filter<T,
 					"L'operatore between richiede almeno due valori con cui confrontare gli oggetti");
 		this.operator = operator;
 	}
-
+	@Override
 	public boolean filter(T toBeFiltered, String operator, Vector<T> values) throws IllegalArgumentException {
 		try {
 			this.toBeFiltered = toBeFiltered;

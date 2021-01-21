@@ -19,9 +19,9 @@ public class CollectionUpdate<ID> implements FromJson {
 	 * Construttore
 	 */
 	public CollectionUpdate(boolean deleteAll, List<ID> savingingList, List<ID> deletingList) {
-		this.deletingList=deletingList;
-		this.savingList=savingingList;
-		this.delteAll=deleteAll;
+		this.deletingList = deletingList;
+		this.savingList = savingingList;
+		this.delteAll = deleteAll;
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class CollectionUpdate<ID> implements FromJson {
 		try {
 			JSONtoJava(percorso);
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 	}
@@ -86,36 +86,32 @@ public class CollectionUpdate<ID> implements FromJson {
 	 */
 	@SuppressWarnings("unchecked")
 	public void JSONtoJava(File json) {
-		  @SuppressWarnings("deprecation")
-		           
-		  
-		  JSONParser parser = new JSONParser();
-		  
-		  Object obj = null;
+		@SuppressWarnings("deprecation")
+
+		JSONParser parser = new JSONParser();
+
+		Object obj = null;
 		try {
 			obj = parser.parse(new FileReader(json));
 		} catch (FileNotFoundException | net.minidev.json.parser.ParseException e) {
-	
+
 		}
-				
-			
-				JSONObject jsonObject = (JSONObject) obj;
 
-	            this.delteAll = (Boolean) jsonObject.get("delteAll");
-	            System.out.println(delteAll);
+		JSONObject jsonObject = (JSONObject) obj;
 
-	            JSONArray arrayDeletingList = (JSONArray)jsonObject.get("deletingIDList");    
-	            for(int i=0; i < arrayDeletingList.size(); i++)  {
-	            	deletingList.add((ID) arrayDeletingList.get(i));
-	            }
-				
-	            JSONArray arraySavingList = (JSONArray)jsonObject.get("SavingList");    
-	            for(int i=0; i < arraySavingList.size(); i++)  {
-	            	deletingList.add((ID) arraySavingList.get(i));
-	            } 
-	           
-				
-	}
+		this.delteAll = (Boolean) jsonObject.get("delteAll");
+		System.out.println(delteAll);
+
+		JSONArray arrayDeletingList = (JSONArray) jsonObject.get("deletingIDList");
+		for (int i = 0; i < arrayDeletingList.size(); i++) {
+			deletingList.add((ID) arrayDeletingList.get(i));
+		}
+
+		JSONArray arraySavingList = (JSONArray) jsonObject.get("SavingList");
+		for (int i = 0; i < arraySavingList.size(); i++) {
+			deletingList.add((ID) arraySavingList.get(i));
+		}
 
 	}
 
+}

@@ -7,57 +7,152 @@ package com.example2.demo2.model;
  *
  */
 
-public class StatsImpl<T, VALUE> {
-	private float max;
-	private float min;
-	private float avarage;
-	private float variance;
+public class StatsImpl {
+	/**
+	 * Valore massimo contenuto nella collezione
+	 */
+	private double max;
+	/**
+	 * valore minimo contenuto nella collezione
+	 */
+	private double min;
+	/**
+	 * Media dei valori nella collezione
+	 */
+	private double mean;
+	/**
+	 * varianza dei valori nella collezione
+	 */
+	private double variance;
+	/**
+	 * Totale dei valori processati, se uguale a -1 il dato è mancante
+	 */
+	private int valuesProcessed = -1;
+	/**
+	 * Totale delle città processate, se uguale a -1 il dato è mancante
+	 */
+	private int citiesProcessed = -1;
 
 	/**
 	 * Costruttore
 	 * 
-	 * @param max      valore massimo del set
-	 * @param min      valore minimo del set
-	 * @param avarage  media del set
-	 * @param variance varianza del set
+	 * @param max      valore massimo dei dati analizzati
+	 * @param min      valore minimo dei dati analizzati
+	 * @param mean     media dei dati analizzati
+	 * @param variance varianza dei dati analizzati
 	 */
-	public StatsImpl(float max, float min, float avarage, float variance) {
+	public StatsImpl(double max, double min, double mean, double variance) {
 		super();
 		this.max = max;
 		this.min = min;
-		this.avarage = avarage;
+		this.mean = mean;
 		this.variance = variance;
 	}
 
-	public float getMax() {
+	/**
+	 * Costruttore
+	 * 
+	 * @param max2            valore massimo dei dati analizzati
+	 * @param min2            valore minimo dei dati analizzati
+	 * @param mean2           media dei dati analizzati
+	 * @param variance2       varianza dei dati analizzati
+	 * @param valuesProcessed totale dei dati analizzati
+	 * @param citiesProcessed totale delle città analizzate
+	 */
+	public StatsImpl(double max2, double min2, double mean2, double variance2, int valuesProcessed,
+			int citiesProcessed) {
+		super();
+		this.max = max2;
+		this.min = min2;
+		this.mean = mean2;
+		this.variance = variance2;
+		this.valuesProcessed = valuesProcessed;
+		this.citiesProcessed = citiesProcessed;
+	}
+
+	/**
+	 * @return il valore massimo
+	 */
+	public double getMax() {
 		return max;
 	}
 
-	public void setMax(float max) {
+	/**
+	 * @param max il valore massimo
+	 */
+	public void setMax(double max) {
 		this.max = max;
 	}
 
-	public float getMin() {
+	/**
+	 * 
+	 * @return il valore minimo
+	 */
+	public double getMin() {
 		return min;
 	}
 
-	public void setMin(float min) {
+	/**
+	 * @param min il valore minimo
+	 */
+	public void setMin(double min) {
 		this.min = min;
 	}
 
-	public float getAvarage() {
-		return avarage;
+	/**
+	 * @return al media
+	 */
+	public double getMean() {
+		return mean;
 	}
 
-	public void setAvarage(float avarage) {
-		this.avarage = avarage;
+	/**
+	 * @param mean la media
+	 */
+	public void setMean(double mean) {
+		this.mean = mean;
 	}
 
-	public float getVariance() {
+	/**
+	 * @return la varianza
+	 */
+	public double getVariance() {
 		return variance;
 	}
 
-	public void setVariance(float variance) {
+	/**
+	 * @param variance la varianza
+	 */
+	public void setVariance(double variance) {
 		this.variance = variance;
+	}
+
+	/**
+	 * @return il numero dei valori processati
+	 */
+	int getValuesProcessed() {
+		return valuesProcessed;
+	}
+
+	/**
+	 * 
+	 * @param valuesProcessed il numero dei valori processati
+	 */
+	void setValuesProcessed(int valuesProcessed) {
+		this.valuesProcessed = valuesProcessed;
+	}
+
+	/**
+	 * @return il numero delle città processate
+	 */
+	double getCitiesProcessed() {
+		return citiesProcessed;
+	}
+
+	/**
+	 * @param citiesProcessed il numero delle città processate
+	 */
+	void setCitiesProcessed(int citiesProcessed) {
+		this.citiesProcessed = citiesProcessed;
 	}
 }

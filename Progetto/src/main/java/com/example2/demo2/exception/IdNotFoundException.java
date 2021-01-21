@@ -4,7 +4,8 @@
 package com.example2.demo2.exception;
 
 /**
- * @author meefa
+ * Eccezione personalizzata che indica che un id non è registrato all'interno della repository
+ * @author Fabio Mecozzi & Davide De Grazia
  *
  */
 public class IdNotFoundException extends Exception {

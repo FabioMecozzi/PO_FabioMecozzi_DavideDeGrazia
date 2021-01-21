@@ -24,11 +24,14 @@ public class FilterService {
 	/**
 	 * Metodo che filtra un Set<CityUV> secondo un filtro descritto in un file json e secondo un numero di giorni precedenti
 	 * @param collection collezione da filtrare
-	 * @param jsonFilter file che descrive i filtri da applicare
+	 * @param jsonFilter file che descrive i filtri da applicare, se null non viene applicato nessun filtro
 	 * @param dateFilter numero di giorni precedenti da considerare
 	 * @return una nuova collezione filtrata
 	 */
 	public Set<CityUV> filterCityUVs(LinkedHashSet<CityUV> collection, File jsonFilter, int dateFilter) {
+		if (jsonFilter==null) {
+			return filterRecords(collection, dateFilter);
+		}
 		return filterCityUVs(filterRecords(collection, dateFilter), jsonFilter);
 	}
 	/**
