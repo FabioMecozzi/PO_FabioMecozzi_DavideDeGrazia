@@ -1,7 +1,13 @@
 package com.example2.demo2.model;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.List;
+
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
 
 /**
  * Classe rappresenta l'oggetto che l'admin inserisce per modificare la
@@ -21,8 +27,13 @@ public class CollectionUpdate<ID> implements FromJson {
 	/**
 	 * Costruttore da file json
 	 */
-	public CollectionUpdate(File json) {
-		JSONtoJava(json);
+	public CollectionUpdate(File percorso) {
+		try {
+			JSONtoJava(percorso);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -73,8 +84,38 @@ public class CollectionUpdate<ID> implements FromJson {
 	 * 
 	 * @param File json File contenente gli attributi per l'oggetto
 	 */
+	@SuppressWarnings("unchecked")
 	public void JSONtoJava(File json) {
-		// TODO implement here
+		  @SuppressWarnings("deprecation")
+		           
+		  
+		  JSONParser parser = new JSONParser();
+		  
+		  Object obj = null;
+		try {
+			obj = parser.parse(new FileReader(json));
+		} catch (FileNotFoundException | net.minidev.json.parser.ParseException e) {
+	
+		}
+				
+			
+				JSONObject jsonObject = (JSONObject) obj;
+
+	            this.delteAll = (Boolean) jsonObject.get("delteAll");
+	            System.out.println(delteAll);
+
+	            JSONArray arrayDeletingList = (JSONArray)jsonObject.get("deletingIDList");    
+	            for(int i=0; i < arrayDeletingList.size(); i++)  {
+	            	deletingList.add((ID) arrayDeletingList.get(i));
+	            }
+				
+	            JSONArray arraySavingList = (JSONArray)jsonObject.get("SavingList");    
+	            for(int i=0; i < arraySavingList.size(); i++)  {
+	            	deletingList.add((ID) arraySavingList.get(i));
+	            } 
+	           
+				
 	}
 
-}
+	}
+
