@@ -10,6 +10,7 @@ public class CityWithCountry extends City {
 	/**
 	 * Identificativo unico di versione
 	 */
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Paese di apparteneza della città
@@ -20,7 +21,6 @@ public class CityWithCountry extends City {
 	 */
 	public CityWithCountry() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -38,7 +38,7 @@ public class CityWithCountry extends City {
 		this.country = country;
 	}
 
-	String getLat() {
+	public String getLat() {
 		return super.getLat();
 	}
 
@@ -46,7 +46,7 @@ public class CityWithCountry extends City {
 		super.setLat(lat);
 	}
 
-	String getLon() {
+	public String getLon() {
 		return super.getLon();
 	}
 
