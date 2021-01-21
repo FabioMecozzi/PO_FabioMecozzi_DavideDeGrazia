@@ -71,6 +71,9 @@ Al termine dell'operazione verrà restituito un json contenente la nuova lista d
 
 ### GET:/GetErrorLog
 Restituisce il log delle eccezioni, tra cui le eccezioni che si sono verificate durante il download dei dati di openweather  ([DownloadException](Progetto/src/main/java/com/example2/demo2/exception/DownloadException.java)) e le eccezioni generate dal controller([ControllerEception](Progetto/src/main/java/com/example2/demo2/exception/ControllerException.java))
+## Package
+**Package diagram:** 
+![](ClassDiagram1.png)
 
  ## Scheduled tasks
  Il sampling dei dati è cadenzato dallo [Scheduler](
